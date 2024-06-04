@@ -29,8 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($success) {
         AlertService::setSuccess('Quantity updated successfully');
+        echo json_encode(['success' => true]);
     } else {
         AlertService::setError('Failed to update quantity');
+        echo json_encode(['success' => false, 'message' => 'Failed to update quantity']);
     }
 } else {
     AlertService::setError('Method not allowed');
