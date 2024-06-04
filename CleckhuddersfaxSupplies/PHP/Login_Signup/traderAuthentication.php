@@ -42,7 +42,6 @@ if (isset($_POST['submit'])) {
         header("Location: TraderSignup.php");
         exit();
     }
-
     
     // Check if email, username, or contact number already exists
     $query_check = "SELECT Email, Username, Phone FROM Trader WHERE Email = '$email' OR Username = '$Uname' OR Phone = '$number'";
@@ -128,8 +127,6 @@ if(isset($_SESSION['isVerifiedTraderSignupOtp']) && ($_SESSION['isVerifiedTrader
         echo "Error: " . $error['message']; 
     }
 }
-
-
 function generateOTP($length = 6)
 {
     return rand(pow(10, $length - 1), pow(10, $length) - 1);

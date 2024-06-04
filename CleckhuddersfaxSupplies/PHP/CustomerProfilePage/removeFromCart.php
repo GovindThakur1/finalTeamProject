@@ -1,4 +1,6 @@
 <?php
+
+    // Remove an product from card
     require_once '../../partials/dbConnect.php';
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -9,13 +11,10 @@
         $db = new Database();
         $customer_id = $_SESSION['user_id'];
         $cartId = $_POST['cart_id'];
-
-        
         
         $success = $db->removeProductFromCart($cartId, $product_id);
 
         if($success) {
-
             header("Location: mycart.php");
             exit;
         } else {

@@ -5,7 +5,6 @@
   if ($_SERVER['REQUEST_METHOD'] == 'POST') 
   {
     $email = htmlspecialchars(trim($_POST['email']));
-    
 
     $otp = generateOTP();
     $_SESSION['otp'] = $otp;

@@ -879,7 +879,7 @@ class Database
         oci_free_statement($stmt);
     
         if ($row) {
-            return $row['ORDERS_COUNT'] < 20;
+            return ($row['ORDERS_COUNT'] < 20);
         } else {
             return true;
         }

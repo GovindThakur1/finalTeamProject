@@ -11,8 +11,6 @@
         header("Location: ../Login_Signup/login.php");
     }
 
-
-
     $customerid = $_SESSION['user_id'];
     $db = new Database();
     $cartid = $db->getCartIdUsingCustomerId($customerid);
@@ -22,7 +20,7 @@
     foreach ($cart_products as $product) {
         $subtotal += $product['PRICE'] * $product['QUANTITY'];
     }
-    $tax = 0; // You need to calculate the tax based on your business logic
+    $tax = 0;
     $total = $subtotal + $tax;
 ?>
 
@@ -194,8 +192,6 @@
         });
     });
     </script>
-
-
 
     <script src="../HeaderPage/head.php"></script>
 </body>

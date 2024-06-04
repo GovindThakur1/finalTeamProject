@@ -62,7 +62,7 @@
         <div class="main_content">
             <div class="hr">My Orders</div>
             <?php
-        // Include your database connection file
+        // Include database connection file
         require_once('../../partials/dbconnect.php');
         $customerId = $_SESSION['user_id'];
         $db = new Database();

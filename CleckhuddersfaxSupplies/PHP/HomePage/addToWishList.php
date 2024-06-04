@@ -5,8 +5,6 @@ include '../alertService.php';
 
 $db = new Database();
 
-
-
 if(!isset($_SESSION['isAuthenticated']) && !isset($_SESSION['loggedin'])) {
     AlertService::setError('Please log in first in order to add to wish list!');
     header("Location: " . $_SERVER['HTTP_REFERER']);

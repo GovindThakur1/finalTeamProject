@@ -20,15 +20,9 @@
   }
 
   $total = $subtotal;
-
-
-
   $customer = $db->getCustomerById($customerid);
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,9 +85,6 @@
                     <?php } ?>
                 </div>
             </div>
-
-
-
 
              <!-- Collection slot choosing -->
             <div class="right-container">

@@ -26,6 +26,7 @@ if(isset($_POST['submit']))
     $Uname = $_POST['userName'];
     $cpassword = $_POST['confirmPassword'];
 
+    // Set the data into session for further use
     $_SESSION['email'] = $_POST['email'];
     $_SESSION['password'] = $_POST['password'];
     $_SESSION['fname'] = $_POST['firstName'];
@@ -35,7 +36,6 @@ if(isset($_POST['submit']))
     $_SESSION['age'] = $_POST['age'];
     $_SESSION['gender'] = $_POST['gender'];
     $_SESSION['Uname'] = $_POST['userName'];
-
 
 
     if (strlen($password) < 8 || strlen($password) > 32) {
@@ -85,8 +85,6 @@ if(isset($_POST['submit']))
         exit();
     }
 
-
-
     $custSignupOtp = generateOTP();
     $_SESSION['custSignupOtp'] = $custSignupOtp;
     $_SESSION['isVerifiedCustSignupOtp'] = FALSE;
@@ -119,9 +117,6 @@ if(isset($_SESSION['isVerifiedCustSignupOtp']) && ($_SESSION['isVerifiedCustSign
     $customerid = null;
 
 
-
-
-
     $query = "INSERT INTO Customer (Cust_image, First_Name, Last_Name, Address, Age, Email, Phone, Gender, Username, Password, Registration_Date) 
             VALUES (empty_blob(), '$fname', '$lname', '$address', '$age', '$email', '$number', '$gender', '$Uname', '$hpassword', SYSDATE)
             RETURNING customer_id INTO :customerid";
@@ -147,7 +142,6 @@ if(isset($_SESSION['isVerifiedCustSignupOtp']) && ($_SESSION['isVerifiedCustSign
     else {
         AlertService::setError('Error while creating your account! Try Again');
         $error = oci_error($statement);
-        echo "Error: " . $error['message']; 
     }
     unset($_SESSION['isVerifiedCustSignupOtp']);
     session_destroy();
@@ -159,5 +153,4 @@ function generateOTP($length = 6)
 {
     return rand(pow(10, $length - 1), pow(10, $length) - 1);
 }
-
 ?>

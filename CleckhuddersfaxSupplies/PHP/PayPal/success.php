@@ -54,21 +54,15 @@ if (isset($_GET['date']) && isset($_GET['slot'])) {
     oci_free_statement($stmt);
 
 
-
-
     // Updating order products from cart products
     $cart_products = $db->getCartProducts($cartid);
     sendCartOrderReceipt($customer_email, $cart_products, $orderId);
     echo $customer_email;
 
- 
-
-
-
     foreach ($cart_products as $product) {
-
         $productStock = $db->getProductStock($product['PRODUCT_ID']);
-        $newStock = $productStock - $no_of_items;
+        // $newStock = $productStock - $no_of_items;
+        $newStock = $productStock - $product['QUANTITY'];
         $db->updateProductStock($product['PRODUCT_ID'], $newStock);
         $query = "INSERT INTO order_product (quantity, product_id, order_id) VALUES (:quantity, :product_id, :order_id)";
         $stmt = oci_parse($conn, $query);

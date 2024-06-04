@@ -70,14 +70,6 @@
     }
 
 
-
-
-
-
-
-
-
-
     //  Updating product
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateproduct'])) {
         $productId = $_POST['update_productId'];
@@ -152,7 +144,6 @@
                 echo "Error updating product: " . $error['message'];
             }
         } else {
-            echo '<br>inside else:' . $productId . "<br>";
 
             $query = "UPDATE PRODUCT
                       SET 
@@ -200,8 +191,6 @@
         
         
     }
-
-
 
 
     // Update Shop logic below:
@@ -284,15 +273,5 @@
 
         oci_close($conn);
     }
-
-
-
-
-
-
-
-
-  
-
 
 ?>

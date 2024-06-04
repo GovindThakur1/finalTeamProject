@@ -1,4 +1,6 @@
 <?php
+
+// Update the product quantity in cart.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     require_once '../../partials/dbConnect.php';
@@ -22,18 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit(); 
     }
 
+    // Update the db
     $success = $db->updateQuantity($cartId, $productId, $newQuantity);
 
     if ($success) {
         AlertService::setSuccess('Quantity updated successfully');
-        echo json_encode(['success' => true]);
     } else {
         AlertService::setError('Failed to update quantity');
-        echo json_encode(['success' => false, 'message' => 'Failed to update quantity']);
     }
 } else {
-    http_response_code(405);
     AlertService::setError('Method not allowed');
-    echo json_encode(['error' => 'Method not allowed']);
 }
 ?>

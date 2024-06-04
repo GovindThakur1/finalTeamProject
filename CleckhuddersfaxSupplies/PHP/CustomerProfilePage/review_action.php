@@ -1,14 +1,16 @@
 <?php
 include '../../partials/dbConnect.php';
 $db = new Database();
-if (isset($_GET['delete_reviewId'])) {
-    $reviewId = intval($_GET['delete_reviewId']);
-    $db->deleteReviewByReviewId($reviewId);
-    header("Location: myReview.php");
-    exit();
-} 
 
+    // Delete a review
+    if (isset($_GET['delete_reviewId'])) {
+        $reviewId = intval($_GET['delete_reviewId']);
+        $db->deleteReviewByReviewId($reviewId);
+        header("Location: myReview.php");
+        exit();
+    }
 
+    // Update a review comment
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_reviewId']) && isset($_POST['editedComment'])) {
         $reviewId = $_POST['edit_reviewId'];
         $editedComment = $_POST['editedComment'];

@@ -3,18 +3,14 @@ session_start();
 include '../../partials/dbConnect.php';
 
 $product_id = $_GET['productid'];
-echo  'helloooo'.$product_id;
-
 $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
-echo ' the qty is: ' . $quantity;
-
-echo 'qty is: ' . $quantity;
 $special_instruction = isset($_GET['special_instruction']) ? $_GET['special_instruction'] : '';
 
 $db = new Database();
 $conn = $db->getConnection();
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+    // If the user is logged in then update the database.
     $user_id = $_SESSION['user_id'];
     $cart_id = $db->getCartIdUsingCustomerId($user_id);
 
@@ -54,20 +50,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 
 } else {
 
-    // Testing
-    // To-be deleted
-    var_dump($product_id);
-    var_dump($quantity);
-    var_dump($special_instruction);
-
     // If the user is not logged in, add the item to the cart in cookies
     if (isset($_COOKIE['cart'])) {
         $cart = json_decode($_COOKIE['cart'], true);
     } else {
         $cart = array();
     }
-
-    var_dump($cart);
 
     if (isset($cart[$product_id])) {
         $cart[$product_id]['quantity'] += $quantity;
@@ -78,10 +66,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
             'special_instruction' => $special_instruction
         );
     }
-
-    // Save the updated cart in the cookie
-    setcookie('cart', json_encode($cart), time() + (86400 * 30), "/"); // 30 days expiration
-
+    // Save the updated cart in the cookie 30 days expiration
+    setcookie('cart', json_encode($cart), time() + (86400 * 30), "/");
 
     // To-be deleted
     if (isset($_COOKIE['cart'])) {
@@ -89,10 +75,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     } else {
         echo 'Cookie "cart" not set.';
     }
-
     echo 'Item added to cart in cookies.';
 }
-
 header("Location: " . $_SERVER['HTTP_REFERER']);
 exit;
 ?>

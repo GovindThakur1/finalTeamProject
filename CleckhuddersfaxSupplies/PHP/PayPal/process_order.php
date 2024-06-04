@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $qty = $_POST['qty'];
     $customer_username = $_SESSION['username'];
 
-
     $order_time = time();
 
     // Extract start hour from collection slot

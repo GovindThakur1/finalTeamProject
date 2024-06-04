@@ -9,7 +9,6 @@
         foreach ($cartProducts as $product) {
             $total += $product['PRICE'] * $product['QUANTITY'];
         }
-
         $order = $db->getOrderByOrderId($orderid);
 
         $orderDetails = $cartProducts;
@@ -81,10 +80,4 @@
             }
         }
     }
-    
-
-
-
-
-
 ?>

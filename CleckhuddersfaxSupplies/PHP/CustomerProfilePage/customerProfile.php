@@ -1,11 +1,10 @@
 <?php
-session_start(); 
-require_once('../../partials/dbConnect.php'); 
-$customerId = $_SESSION['user_id']; 
+session_start();
+require_once('../../partials/dbConnect.php');
+$customerId = $_SESSION['user_id'];
 $db = new Database();
 $customer = $db->getCustomerById($customerId);
 $profileUpdateAlert = FALSE;
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_image"])) {
     $base64ImageData = base64_encode(file_get_contents($_FILES["profile_image"]["tmp_name"]));
@@ -53,13 +52,13 @@ $db->closeConnection();
             <div class="profile-content">
                 <div class="profile-image">
                     <?php
-                    $imageBase64 = $db->getProfileImage($customerId); 
+                    $imageBase64 = $db->getProfileImage($customerId);
                     if ($imageBase64) {
                         echo '<img src="data:image/jpeg;base64,' . $imageBase64 . '" alt="User Image" style="width: 250px; height: 320px;">';
                     } else {
                         echo '<img src="../Image/usericon.png" alt="User Image" style="max-width: 200px; max-height: 200px;">';
                     }
-                    
+
                     ?>
                     <form id="image-upload-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
                         method="post" enctype="multipart/form-data">

@@ -4,6 +4,7 @@ include '../../partials/dbConnect.php';
 
 $db = new Database();
 
+// Save a new review.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $customerId = $_POST['customerId'];
     $productId = $_POST['productId'];
