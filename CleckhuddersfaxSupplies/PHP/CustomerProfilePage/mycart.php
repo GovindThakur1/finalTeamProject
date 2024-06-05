@@ -192,7 +192,6 @@
         });
     });
     </script>
-
     <script src="../HeaderPage/head.php"></script>
 </body>
 

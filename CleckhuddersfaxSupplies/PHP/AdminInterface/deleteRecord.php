@@ -103,6 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         } elseif ($entityType === 'customer') {
             // Delete from Favourite where Customer_ID matches
+            $sqlCart = "DELETE FROM cart WHERE Customer_ID = :entity_id";
+            $sqlCart = oci_parse($conn, $sqlCart);
+            oci_bind_by_name($sqlCart, ':entity_id', $entityID);
+            if (!oci_execute($sqlCart, OCI_NO_AUTO_COMMIT)) {
+                throw new Exception("Error deleting from Cart");
+            }
+
             $sqlFavourite = "DELETE FROM Favourite WHERE Customer_ID = :entity_id";
             $stidFavourite = oci_parse($conn, $sqlFavourite);
             oci_bind_by_name($stidFavourite, ':entity_id', $entityID);
@@ -157,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } finally {
         // Free the statement identifiers if they are initialized
         if (isset($stidProduct)) oci_free_statement($stidProduct);
+        if (isset($sqlCart)) oci_free_statement($sqlCart);
         if (isset($stidShop)) oci_free_statement($stidShop);
         if (isset($stidTrader)) oci_free_statement($stidTrader);
         if (isset($stidCustomer)) oci_free_statement($stidCustomer);

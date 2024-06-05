@@ -59,10 +59,10 @@ class MailerService
     public function forgotPassEmailVerification($toEmail, $otp)
     {
         try {
-            $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies'); // Sender's email address and name
-            $this->mail->addAddress($toEmail);                       // Recipient's email address
+            $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies');
+            $this->mail->addAddress($toEmail);
             $this->mail->Subject = 'Password Reset OTP';
-            $this->mail->isHTML(true);  // Set email format to HTML
+            $this->mail->isHTML(true);
             $this->mail->Body = '
                 <html>
                 <body style="font-family: Arial, sans-serif;">
@@ -107,19 +107,19 @@ class MailerService
 
             // Send email
             $this->mail->send();
-            return true; // Email sent successfully
+            return true;
         } catch (Exception $e) {
-            return false; // Failed to send email
+            return false;
         }
     }
 
     public function custProfileUpdateEmailVerification($toEmail, $otp)
     {
         try {
-            $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies'); // Sender's email address and name
-            $this->mail->addAddress($toEmail);                       // Recipient's email address
+            $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies');
+            $this->mail->addAddress($toEmail);
             $this->mail->Subject = 'Cleckhuddersfax Supplies - Email Verification for Profile Update';
-            $this->mail->isHTML(true);  // Set email format to HTML
+            $this->mail->isHTML(true);
             $this->mail->Body = '
                 <html>
                 <body style="font-family: Arial, sans-serif;">
@@ -136,19 +136,19 @@ class MailerService
 
             // Send email
             $this->mail->send();
-            return true; // Email sent successfully
+            return true;
         } catch (Exception $e) {
-            return false; // Failed to send email
+            return false;
         }
     }
 
     public function traderSignupEmailVerification($email, $traderSignupOtp)
     {
         try {
-            $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies'); // Sender's email address and name
-            $this->mail->addAddress($email);                       // Recipient's email address
+            $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies');
+            $this->mail->addAddress($email);
             $this->mail->Subject = 'Welcome to Cleckhuddersfax Supplies - Verify Your Trader Account';
-            $this->mail->isHTML(true);  // Set email format to HTML
+            $this->mail->isHTML(true);
             $this->mail->Body = '
                 <html>
                 <body style="font-family: Arial, sans-serif;">
@@ -171,11 +171,10 @@ class MailerService
                 </html>
             ';
 
-            // Send email
             $this->mail->send();
-            return true; // Email sent successfully
+            return true;
         } catch (Exception $e) {
-            return false; // Failed to send email
+            return false;
         }
     }
 
@@ -188,7 +187,7 @@ class MailerService
             $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies'); 
             $this->mail->addAddress($toEmail);                  
             $this->mail->Subject = 'Order Receipt - Cleckhuddersfax Supplies';
-            $this->mail->isHTML(true);  // Set email format to HTML
+            $this->mail->isHTML(true);
 
             // Format collection date to include the day of the week
             $collectionDate = new DateTime($orderDetails['collection_date']);
@@ -277,7 +276,6 @@ class MailerService
                 if ($key === 'total' || $key === 'collection_date' || $key === 'collection_slot') {
                     continue; // Skip the total and collection details
                 }
-
                 $emailBody .= '
                             <tr>
                                 <td>' . htmlspecialchars($product['PRODUCT_NAME']) . '</td>
@@ -286,7 +284,6 @@ class MailerService
                                 <td>$' . number_format($product['PRICE'] * $product['QUANTITY'], 2) . '</td>
                             </tr>';
             }
-
             // Add total summary and collection details
             $emailBody .= '
                             <tr class="total">
@@ -303,58 +300,86 @@ class MailerService
 
             // Set email body
             $this->mail->Body = $emailBody;
-
             // Send email
             $this->mail->send();
-            return true; // Email sent successfully
+            return true;
         } catch (Exception $e) {
-            return false; // Failed to send email
+            return false;
         }
     }
-
-
-
-
 
     // receipt to trader
     public function sendTraderOrderReceipt($toEmail, $orderDetails, $customerName, $customerUsername)
     {
-        echo $toEmail . '<br>'; // Print $toEmail for debugging
-        echo $customerName . '<br>'; // Print $customerName for debugging
-        echo $customerUsername . '<br>'; // Print $customerUsername for debugging
-
         try {
-
             $emailBody = '
-            <html>
-                <head>
-                    <style>
-                        /* Your CSS styles here */
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <h2>Order Receipt</h2>
-                        <p>Thank you for your order with Cleckhuddersfax Supplies. Below is the summary of your order:</p>
-                        <p>Customer Name: ' . htmlspecialchars($customerName) . '</p>
-                        <p>Customer Username: ' . htmlspecialchars($customerUsername) . '</p>
-                        <table border="1">
-                            <tr>
-                                <th>Product</th>
-                                <th>Unit Price</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                            </tr>';
+        <html>
+            <head>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f4f4f4;
+                    }
+                    .container {
+                        width: 80%;
+                        margin: 0 auto;
+                        padding: 20px;
+                        background-color: #ffffff;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    h2 {
+                        color: #333333;
+                    }
+                    p {
+                        font-size: 16px;
+                        color: #555555;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-top: 20px;
+                    }
+                    table, th, td {
+                        border: 1px solid #dddddd;
+                    }
+                    th, td {
+                        padding: 8px;
+                        text-align: left;
+                    }
+                    th {
+                        background-color: #f2f2f2;
+                    }
+                    .total td {
+                        font-weight: bold;
+                        background-color: #f2f2f2;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>Order Receipt</h2>
+                    <p>Thank you for your order with Cleckhuddersfax Supplies. Below is the summary of your order:</p>
+                    <p>Customer Name: ' . htmlspecialchars($customerName) . '</p>
+                    <p>Customer Username: ' . htmlspecialchars($customerUsername) . '</p>
+                    <table border="1">
+                        <tr>
+                            <th>Product</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>';
 
             // Loop through order details to construct rows for each product
             foreach ($orderDetails as $product) {
                 $emailBody .= '
-                            <tr>
-                                <td>' . htmlspecialchars($product['PRODUCT_NAME']) . '</td>
-                                <td>$' . htmlspecialchars($product['PRICE']) . '</td>
-                                <td>' . htmlspecialchars($product['QUANTITY']) . '</td>
-                                <td>$' . number_format($product['PRICE'] * $product['QUANTITY'], 2) . '</td>
-                            </tr>';
+                        <tr>
+                            <td>' . htmlspecialchars($product['PRODUCT_NAME']) . '</td>
+                            <td>$' . htmlspecialchars($product['PRICE']) . '</td>
+                            <td>' . htmlspecialchars($product['QUANTITY']) . '</td>
+                            <td>$' . number_format($product['PRICE'] * $product['QUANTITY'], 2) . '</td>
+                        </tr>';
             }
 
             // Calculate total
@@ -364,41 +389,35 @@ class MailerService
 
             // Add total summary and collection details
             $emailBody .= '
-                            <tr class="total">
-                                <td colspan="3">Total:</td>
-                                <td>$' . number_format($totalAmount, 2) . '</td>
-                            </tr>
-                        </table>
-                        <p>Thank you for shopping with us!</p>
-                    </div>
-                </body>
-            </html>';
+                        <tr class="total">
+                            <td colspan="3">Total:</td>
+                            <td>$' . number_format($totalAmount, 2) . '</td>
+                        </tr>
+                    </table>
+                    <p>Thank you for shopping with us!</p>
+                </div>
+            </body>
+        </html>';
 
             // Set email content and headers
             $this->mail->setFrom($this->mail->Username, 'Cleckhuddersfax Supplies');
-            $this->mail->addAddress($toEmail);                       // Recipient's email address
+            $this->mail->addAddress($toEmail);
             $this->mail->Subject = 'Trader Order Receipt - Cleckhuddersfax Supplies';
-            $this->mail->isHTML(true); 
+            $this->mail->isHTML(true);
 
             // Set email body
             $this->mail->Body = $emailBody;
 
             // Send email
             if (!$this->mail->send()) {
-        
                 error_log('Mailer Error: ' . $this->mail->ErrorInfo);
-                return false; // Failed to send email
+                return false;
             }
-
-            return true; // Email sent successfully
+            return true;
         } catch (Exception $e) {
-            // Log exception message
             error_log('Exception caught: ' . $e->getMessage());
-            return false; // Failed to send email
+            return false;
         }
     }
-
-    
-
 
 }
