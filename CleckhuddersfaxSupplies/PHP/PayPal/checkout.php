@@ -14,9 +14,17 @@
 
   $subtotal = 0;
   $totalNoOfItems = 0;
+  $totalNoOfProducts = 0;
   foreach ($cart_products as $product) {
+      $totalNoOfProducts += 1;
     $totalNoOfItems += $product['QUANTITY'];
     $subtotal += $product['PRICE'] * $product['QUANTITY'];
+  }
+
+  if ($totalNoOfProducts > 20) {
+      AlertService::setError("Cannot have more than 20 products in a cart! Please remove some..");
+      header("Location: ../CustomerProfilePage/mycart.php");
+      exit();
   }
 
   $total = $subtotal;

@@ -175,13 +175,9 @@ class Database
             $cartId = $this->getCartIdUsingCustomerId($user_id); 
             $query = "SELECT product_id, quantity, special_instruction FROM cart_product WHERE cart_id = :cart_id";
 
-            // Get the database connection
             $conn = $this->getConnection();
 
-            // Prepare the statement
             $statement = oci_parse($conn, $query);
-
-            // Bind parameters
             oci_bind_by_name($statement, ":cart_id", $cartId);
 
             oci_execute($statement);
@@ -195,12 +191,6 @@ class Database
                         'quantity' => $row['QUANTITY'],
                         'special_instruction' => $row['SPECIAL_INSTRUCTION']
                     );
-
-                    // Log debug information for each row
-                    var_dump($row['PRODUCT_ID']);
-                    var_dump($row['QUANTITY']);
-                    var_dump($row['SPECIAL_INSTRUCTION']);
-                } else {
                 }
             }
 
