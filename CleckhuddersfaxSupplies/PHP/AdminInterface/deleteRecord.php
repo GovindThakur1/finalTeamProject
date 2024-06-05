@@ -172,7 +172,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($stidOrderProduct)) oci_free_statement($stidOrderProduct);
         if (isset($stidReview)) oci_free_statement($stidReview);
         if (isset($stidFavourite)) oci_free_statement($stidFavourite);
-
         // Close the Oracle connection
         oci_close($conn);
     }
